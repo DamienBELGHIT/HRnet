@@ -1,19 +1,22 @@
 import "./index.css"
 
-export default function Modal({ children, visible }) {
+export default function Modal({ children, visible, setVisible }) {
   return visible ? (
-    <div className="modal">
-      <button
-        className="close-modal"
-        onClick={() => {
-          visible = false
-        }}
-      >
-        X
-      </button>
-      {children}
+    <div>
+      <div id="grey-bg"></div>
+      <div className="modal">
+        <button
+          className="close-modal"
+          onClick={() => {
+            setVisible(false)
+          }}
+        >
+          X
+        </button>
+        {children}
+      </div>
     </div>
   ) : (
-    <div></div>
+    ""
   )
 }

@@ -54,7 +54,9 @@ export default function NewEmployee() {
         </form>
         <button onClick={() => setModalVisible(true)}>Save</button>
       </div>
-      <Modal visible={modalVisible}>Employee Created !</Modal>
+      <Modal visible={modalVisible} setVisible={setModalVisible}>
+        Employee Created !
+      </Modal>
     </main>
   )
 }
