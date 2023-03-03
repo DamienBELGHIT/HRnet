@@ -1,0 +1,46 @@
+.dataTable th {
+  padding: 0 15px;
+  border-bottom: black 2px solid;
+  margin: 0;
+}
+
+.dataTable th > div {
+  display: flex;
+  align-items: center;
+}
+
+.dataTable .filter-icons {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.dataTable .filter-icons img {
+  width: 10px;
+  margin: 1px;
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+.dataTable .filter-icons img.highlight {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.dataTable .filter-icons img:nth-child(2) {
+  transform: scaleY(-1);
+}
+
+#nb-entries {
+  margin: 0 10px;
+}
+
+.dataTable > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dataTable tr:nth-child(even) {
+  background-color: rgba(184, 184, 184, 0.342);
+}
