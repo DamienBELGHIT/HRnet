@@ -1,14 +1,11 @@
 import { useState } from "react"
 import triangle from "../../assets/images/triangle.png"
+import PropTypes from "prop-types"
 import "./index.css"
 
-/**
- * Component for showing an interactive table of data
- * @component
- */
 export default function DataTable({ data, columns }) {
   const [tableData, setTableData] = useState(data)
-  const [filter, setFilter] = useState("")
+  const [filter, setFilter] = useState({ column: "", reverse: false })
   const [nbEntries, setNbEntries] = useState(10)
   const [page, setPage] = useState(0)
 
@@ -17,8 +14,10 @@ export default function DataTable({ data, columns }) {
    * @param {Object} column The column filtering the data
    */
   function changeFilter(column) {
-    const newFilter =
-      column.data + (filter === `${column.data}` ? "|Reverse" : "")
+    const newFilter = {
+      column: column.data,
+      reverse: filter.column === `${column.data}` && !filter.reverse,
+    }
     setFilter(newFilter)
     setTableData(sortAlphaArray(tableData, newFilter))
   }
@@ -26,16 +25,20 @@ export default function DataTable({ data, columns }) {
   /**
    * Sorts alphabetically an array of object
    * @param {Object[]} array The array to sort.
-   * @param {String} newFilter The filter indicating which attribute of the object to base the sort on and if the order should be reversed
-   * @returns The array sorted
+   * @param {Object} newFilter The filter indicating which attribute of the object to base the sort on and if the order should be reversed
+   * @returns The array sorted or the initial array if the filter doesn't include an existing attribute
    */
   function sortAlphaArray(array, newFilter) {
-    const columnData = newFilter.split("|")[0]
-    return array.sort((a, b) =>
-      newFilter === `${columnData}`
-        ? a[columnData].localeCompare(b[columnData])
-        : b[columnData].localeCompare(a[columnData])
-    )
+    const columnData = newFilter.column
+    if (array[0][columnData] !== undefined) {
+      return array.sort((a, b) =>
+        newFilter.reverse
+          ? b[columnData].localeCompare(a[columnData])
+          : a[columnData].localeCompare(b[columnData])
+      )
+    } else {
+      return array
+    }
   }
 
   /**
@@ -100,13 +103,19 @@ export default function DataTable({ data, columns }) {
                     <img
                       src={triangle}
                       alt="filter"
-                      className={filter === `${column.data}` ? "highlight" : ""}
+                      className={
+                        filter.column === column.data && !filter.reverse
+                          ? "highlight"
+                          : ""
+                      }
                     />
                     <img
                       src={triangle}
                       alt="filter"
                       className={
-                        filter === `${column.data}|Reverse` ? "highlight" : ""
+                        filter.column === column.data && filter.reverse
+                          ? "highlight"
+                          : ""
                       }
                     />
                   </div>
@@ -156,4 +165,20 @@ export default function DataTable({ data, columns }) {
       </div>
     </div>
   )
+}
+
+DataTable.propTypes = {
+  /**
+   * The data to populate the table
+   * @example
+   * [{firstName: "Bob", lastName: "Builder"}, {firstName: "Oliver", lastName: "Twist"}, ...]
+   */
+  data: PropTypes.arrayOf(PropTypes.object),
+
+  /**
+   * The columns title and linked attribute for the table
+   * @example
+   * [{ title: "First Name", data: "firstName" }, { title: "Last Name", data: "lastName" }]
+   */
+  columns: PropTypes.arrayOf(PropTypes.object),
 }
