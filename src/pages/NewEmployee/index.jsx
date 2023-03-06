@@ -7,6 +7,8 @@ import { departments } from "../../assets/data/departments"
 import { addEmployee } from "../../features/employees"
 import "./index.css"
 import { useDispatch } from "react-redux"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 
 export default function NewEmployee() {
   const dispatch = useDispatch()
@@ -16,6 +18,16 @@ export default function NewEmployee() {
   const [modalVisible, setModalVisible] = useState(false)
   const [department, setDepartment] = useState(departments[0])
   const [stateUS, setStateUS] = useState(statesName[0])
+  const [dateOfBirth, setDateOfBirth] = useState(new Date())
+  const [startDate, setStartDate] = useState(new Date())
+
+  function formatDate(date) {
+    let year = date.getFullYear()
+    let month = (1 + date.getMonth()).toString().padStart(2, "0")
+    let day = date.getDate().toString().padStart(2, "0")
+
+    return month + "/" + day + "/" + year
+  }
 
   const handleSubmit = (e) => {
     setModalVisible(true)
@@ -23,8 +35,6 @@ export default function NewEmployee() {
 
     const firstName = e.target.firstName.value
     const lastName = e.target.lastName.value
-    const dateOfBirth = e.target.dateOfBirth.value
-    const startDate = e.target.startDate.value
     const street = e.target.street.value
     const city = e.target.city.value
     const zipCode = e.target.zipCode.value
@@ -35,8 +45,8 @@ export default function NewEmployee() {
     const employee = {
       firstName: firstName,
       lastName: lastName,
-      dateOfBirth: dateOfBirth,
-      startDate: startDate,
+      dateOfBirth: formatDate(dateOfBirth),
+      startDate: formatDate(startDate),
       department: department,
       street: street,
       city: city,
@@ -65,10 +75,16 @@ export default function NewEmployee() {
           <input type="text" id="lastName" name="lastName" />
 
           <label htmlFor="date-of-birth">Date of Birth</label>
-          <input id="date-of-birth" type="text" name="dateOfBirth" />
+          <DatePicker
+            selected={dateOfBirth}
+            onChange={(date) => setDateOfBirth(date)}
+          />
 
           <label htmlFor="start-date">Start Date</label>
-          <input id="start-date" type="text" name="startDate" />
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
 
           <fieldset className="address">
             <legend>Address</legend>
