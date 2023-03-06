@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom"
 import "./index.css"
 import DataTable from "../../components/DataTable"
-import { employees } from "../../assets/employees"
+import { selectEmployees } from "../../utils/selectors"
+import { useSelector } from "react-redux"
 
 export default function ListEmployee() {
+  const employeesData = useSelector(selectEmployees)
   return (
     <main>
       <div id="employee-div" className="container">
         <h1>Current Employees</h1>
         <DataTable
-          data={employees}
+          data={employeesData.employeesList}
           columns={[
             { title: "First Name", data: "firstName" },
             { title: "Last Name", data: "lastName" },

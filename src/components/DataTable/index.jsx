@@ -30,7 +30,7 @@ export default function DataTable({ data, columns }) {
    */
   function sortAlphaArray(array, newFilter) {
     const columnData = newFilter.column
-    if (array[0][columnData] !== undefined) {
+    if (array[0] && array[0][columnData] !== undefined) {
       return array.sort((a, b) =>
         newFilter.reverse
           ? b[columnData].localeCompare(a[columnData])

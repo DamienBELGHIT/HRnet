@@ -1,0 +1,61 @@
+.option-selected {
+  cursor: pointer;
+  border: 1px solid black;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  border-radius: 10px;
+  background-color: white;
+  position: relative;
+}
+
+.option-selected:hover {
+  background-color: rgb(226, 226, 226);
+}
+
+.option-selected img {
+  width: 10px;
+  margin: 1px;
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+.flipped {
+  transform: scaleY(-1);
+}
+
+.option-list {
+  list-style: none;
+  padding: 0;
+  border: 1px solid black;
+  border-bottom: 0;
+  margin: 0;
+}
+
+.option-list {
+  width: fit-content;
+  background-color: white;
+  z-index: 1;
+  transform: translate(0, -7px);
+}
+
+.option-list li {
+  cursor: pointer;
+  width: 200px;
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+
+.option-list li:hover {
+  background-color: rgba(184, 184, 184, 0.342);
+}
+
+.dropdown {
+  position: relative;
+}
+
+.option-list {
+  position: absolute;
+}
