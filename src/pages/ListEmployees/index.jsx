@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import "./index.css"
-import DataTable from "../../components/DataTable"
+import { DataTable } from "react-interactive-datatable"
 import { selectEmployees } from "../../utils/selectors"
 import { useSelector } from "react-redux"
 
