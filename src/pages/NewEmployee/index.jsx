@@ -74,17 +74,21 @@ export default function NewEmployee() {
           <label htmlFor="lastName">Last Name</label>
           <input type="text" id="lastName" name="lastName" />
 
-          <label htmlFor="date-of-birth">Date of Birth</label>
-          <DatePicker
-            selected={dateOfBirth}
-            onChange={(date) => setDateOfBirth(date)}
-          />
+          <label htmlFor="date-of-birth">
+            Date of Birth
+            <DatePicker
+              selected={dateOfBirth}
+              onChange={(date) => setDateOfBirth(date)}
+            />
+          </label>
 
-          <label htmlFor="start-date">Start Date</label>
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-          />
+          <label htmlFor="start-date">
+            Start Date
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+            />
+          </label>
 
           <fieldset className="address">
             <legend>Address</legend>
